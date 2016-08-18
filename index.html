@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+
+$('img').click(function(){
+    $('.selected').removeClass('selected');
+    $(this).addClass('selected');
+});
+
+</script>
+</head>
 <style>
 
 img{border:solid 1px red; margin:10px;}
@@ -10,20 +21,7 @@ img{border:solid 1px red; margin:10px;}
 
 </style>
 
-<script>
 
-
-
-</script>
-
-<?php 
-
-$('img').click(function(){
-    $('.selected').removeClass('selected');
-    $(this).addClass('selected');
-});
-
-?>
 
 <img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
 <img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
