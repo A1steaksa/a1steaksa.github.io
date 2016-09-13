@@ -1,0 +1,97 @@
+.GoodButton {
+	background-color:#33CC33;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:18px 29px;
+	text-decoration:none;
+	box-shadow: 0px 10px 1px #2EB82E;
+	margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+	border: 0px;
+}
+
+.GoodButton:focus {
+	outline:0;
+}
+
+.GoodButton:hover {
+	background-color:#33CC33;
+	position:relative;
+	box-shadow: 0px 8px 1px #2EB82E;
+	top:2px;
+}
+
+.GoodButton:active {
+	position:relative;
+	background-color:#1F7A1F;
+	top:10px;
+	box-shadow: 0px 0px 0px #2EB82E;
+}
+
+
+
+.BadButton {
+	background-color:#A9A9A9;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:18px 29px;
+	text-decoration:none;
+	box-shadow: 0px 10px 1px #989898;
+	margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+	border: 0px;
+}
+
+.BadButton:hover {
+	background-color:#A9A9A9;
+	position:relative;
+	box-shadow: 0px 9px 1px #989898;
+	top:1px;
+}
+
+.BadButton:active {
+	background-color:#A9A9A9;
+	position:relative;
+	box-shadow: 0px 8px 1px #989898;
+	top:2px;
+}
+
+.unselectable {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.FontFormat{
+	font-family: Helvetica, Times, serif;
+}
+
+.UpgradesButtonsTable{
+	text-align: right;
+	table-layout: auto;
+}
+
+.BuyingButtonsTable{
+	text-align: left;
+	table-layout: auto;
+}
+
+.TextTable{
+	position: relative;
+	margin: auto;
+}
+

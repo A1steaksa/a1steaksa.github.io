@@ -1,35 +1,264 @@
-<!DOCTYPE html>
-<html>
-
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>
-
-$('img').click(function(){
-    $('.selected').removeClass('selected');
-    $(this).addClass('selected');
-});
-
-</script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
-<style>
-
-img{border:solid 1px red; margin:10px;}
-.selected{
-    box-shadow:0px 12px 22px 1px #333;
-}
-
-</style>
-
-
-
-<img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
-<img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
-<img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
-<img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
-<img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
-<img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
-<img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
-<img src='https://cdn4.iconfinder.com/data/icons/miu-shadow-social/48/twitter-128.png' />
-
-</html>
+<title>BusinessSim v0.1.4</title>
+<script>
+	var Cash = 0;
+	var ClickWorth = 1;
+	var CostMultiplier = 1.05;
+	var CashInterval = 10;
+	var CashPerSecond = 0;
+	var UpgradeCostMultiplier = 1.15;
+	var UpgradeProductivityMultiplier = 2;
+	var TitleBase = "BusinessSim";
+	
+	var OwnedInterns = 0;
+	var InternBaseCost = 25;
+	var InternCurrentCost = InternBaseCost;
+	var InternCashGen = 1;
+	var InternButtonText = "Hire Intern ";
+	var InternUpgradeCost = 100;
+	var InternCurrentUpgradeCost = InternUpgradeCost;
+	var OwnedInternUpgrades = 0;
+	
+	var OwnedAccountants = 0;
+	var AccountantBaseCost = 100;
+	var AccountantCurrentCost = AccountantBaseCost;
+	var AccountantCashGen = 5;
+	var AccountantButtonText = "Hire Accountant ";
+	var AccountantUpgradeCost = 1000;
+	var AccountantCurrentUpgradeCost = AccountantUpgradeCost;
+	var OwnedAccountantUpgrades = 0;
+	
+	var OwnedBankers = 0;
+	var BankerBaseCost = 500;
+	var BankerCurrentCost = BankerBaseCost;
+	var BankerCashGen = 50;
+	var BankerButtonText = "Hire Banker ";
+	var BankerUpgradeCost = 10000;
+	var BankerCurrentUpgradeCost = BankerUpgradeCost;
+	var OwnedBankerUpgrades = 0;
+	
+	var OwnedCFOs = 0;
+	var CFOBaseCost = 1500;
+	var CFOCurrentCost = CFOBaseCost;
+	var CFOCashGen = 150;
+	var CFOButtonText = "Hire CFO ";
+	var CFOUpgradeCost = 50000;
+	var CFOCurrentUpgradeCost = CFOUpgradeCost;
+	var OwnedCFOUpgrades = 0;
+	
+</script>
+<label class="unselectable" style="font-family:veranda">
+	<label class="FontFormat">
+		<center><h1 id="CashCounter">Cash Greenbacks: </h1></center>
+		<center><h1 id="CashPerSecondCounter"> Cash Greenbacks: </h1></center>
+		<table class="TextTable">
+			<tr>
+				<td><h1 id="InternCounter">Interns: </h1></td>
+				<td><h1 id="InternsPerSecond"></h1></td>
+			</tr>
+			<tr>
+				<td><h1 id="AccountantCounter">Accountants: </h1></td>
+				<td><h1 id="AccountantsPerSecond"></h1></td>
+			</tr>
+			<tr>
+				<td><h1 id="BankerCounter">Bankers: </h1></td>
+				<td><h1 id="BankersPerSecond"></h1></td>
+			</tr>
+			<tr>
+				<td><h1 id="CFOCounter">CFOs: </h1></td>
+				<td><h1 id="CFOsPerSecond"></h1></td>
+			</tr>
+		</table>
+		<center><a id = "Click"; onclick="addCash(ClickWorth);"; class="GoodButton"><label class="unselectable">Do Business</label></a></center>
+		<center>
+			<label class="unselectable">
+				<table>
+					<tr>
+						<td class="UpgradesButtonsTable"><a id = "UpgradeIntern"; onclick="upgradeIntern()"; class="GoodButton">Upgrade</a></td>
+						<td class="BuyingButtonsTable"><a id = "HireIntern"; onclick="hireIntern()"; class="GoodButton"><Hire Intern</a></td>
+					</tr>
+					<tr>
+						<td class="UpgradesButtonsTable"><a id = "UpgradeAccountant"; onclick="upgradeAccountant()"; class="GoodButton">Upgrade</a></td>
+						<td class="BuyingButtonsTable"><a id = "HireAccountant"; onclick="hireAccountant()"; class="GoodButton">Hire Accountant</a></td>
+					</tr>
+					<tr>
+						<td class="UpgradesButtonsTable"><a id = "UpgradeBanker"; onclick="upgradeBanker()"; class="GoodButton">Upgrade</a></td>
+						<td class="BuyingButtonsTable"><a id = "HireBanker"; onclick="hireBanker()"; class="GoodButton">Hire Banker</label></a></td>
+					</tr>
+					<tr>
+						<td class="UpgradesButtonsTable"><a id = "UpgradeCFO"; onclick="upgradeCFO()"; class="GoodButton">Upgrade</a></td>
+						<td class="BuyingButtonsTable"><a id = "HireCFO"; onclick="hireCFO()"; class="GoodButton">Hire CFO</label></a></td>
+					</tr>
+				</table>
+			</label>
+		</center>
+	</label>
+</label>
+<script>
+	
+	var CashCounterBase = "Cash Greenbacks: $";
+	var InternCounterBase = "Interns: ";
+	var AccountantCounterBase = "Accountants: ";
+	var BankerCounterBase = "Bankers: ";
+	var CFOCounterBase = "CFOs: ";
+	var InternsPerSecond;
+	var AccountantsPerSecond;
+	var BankersPerSecond;
+	var CFOsPerSecond;
+	var CashPerSecond;
+	updateValues();
+	
+	//IMPLEMENT BASECOST * (CHANGEPERCENT^OWNED)
+	
+	function updateValues(){
+		//Cash
+		InternsPerSecond = 		( OwnedInterns * InternCashGen * ( 1 + OwnedInternUpgrades ) )
+		AccountantsPerSecond =	( OwnedAccountants * AccountantCashGen * ( 1 + OwnedAccountantUpgrades ) )
+		BankersPerSecond =		( OwnedBankers * BankerCashGen * ( 1 + OwnedBankerUpgrades ) )
+		CFOsPerSecond =		( OwnedCFOs * CFOCashGen * ( 1 + OwnedCFOUpgrades ) )
+		CashPerSecond = InternsPerSecond + AccountantsPerSecond + BankersPerSecond + CFOsPerSecond
+		document.getElementById('CashCounter').innerHTML = CashCounterBase.concat( Math.floor(Cash) );
+		document.getElementById('CashPerSecondCounter').innerHTML = "  +$".concat(CashPerSecond,"/sec");
+		
+		
+		
+		//Interns
+		document.getElementById("HireIntern").innerHTML = InternButtonText.concat("($",InternCurrentCost,")");
+		if ( Cash < InternCurrentCost ){document.getElementById("HireIntern").className = "BadButton";}else{document.getElementById("HireIntern").className = "GoodButton";}
+		document.getElementById("InternCounter").innerHTML = InternCounterBase.concat(OwnedInterns);
+		document.getElementById("UpgradeIntern").innerHTML = "Upgrade ($"+Math.floor(InternUpgradeCost)+")";
+		if ( Cash < InternUpgradeCost ){document.getElementById("UpgradeIntern").className = "BadButton";}else{document.getElementById("UpgradeIntern").className = "GoodButton";}
+		document.getElementById('InternsPerSecond').innerHTML = "  +$".concat(InternsPerSecond,"/sec");
+		
+		
+		//Accountants
+		document.getElementById("HireAccountant").innerHTML = AccountantButtonText.concat("($",AccountantCurrentCost,")");
+		if ( Cash < AccountantCurrentCost ){document.getElementById("HireAccountant").className = "BadButton";}else{document.getElementById("HireAccountant").className = "GoodButton";}
+		document.getElementById("AccountantCounter").innerHTML = AccountantCounterBase.concat(OwnedAccountants);
+		document.getElementById("UpgradeAccountant").innerHTML = "Upgrade ($"+Math.floor(AccountantUpgradeCost)+")";
+		if ( Cash < AccountantUpgradeCost ){document.getElementById("UpgradeAccountant").className = "BadButton";}else{document.getElementById("UpgradeAccountant").className = "GoodButton";}
+		document.getElementById('AccountantsPerSecond').innerHTML = "  +$".concat(AccountantsPerSecond,"/sec");
+		
+		//Bankers
+		document.getElementById("HireBanker").innerHTML = BankerButtonText.concat("($",BankerCurrentCost,")");
+		if ( Cash < BankerCurrentCost ){document.getElementById("HireBanker").className = "BadButton";}else{document.getElementById("HireBanker").className = "GoodButton";}
+		document.getElementById("BankerCounter").innerHTML = BankerCounterBase.concat(OwnedBankers);
+		document.getElementById("UpgradeBanker").innerHTML = "Upgrade ($"+Math.floor(BankerUpgradeCost)+")";
+		if ( Cash < BankerUpgradeCost ){document.getElementById("UpgradeBanker").className = "BadButton";}else{document.getElementById("UpgradeBanker").className = "GoodButton";}
+		document.getElementById('BankersPerSecond').innerHTML = "  +$".concat(BankersPerSecond,"/sec");
+		
+		//CFOs
+		document.getElementById("HireCFO").innerHTML = CFOButtonText.concat("($",CFOCurrentCost,")");
+		if ( Cash < CFOCurrentCost ){document.getElementById("HireCFO").className = "BadButton";}else{document.getElementById("HireCFO").className = "GoodButton";}
+		document.getElementById("CFOCounter").innerHTML = CFOCounterBase.concat(OwnedCFOs);
+		document.getElementById("UpgradeCFO").innerHTML = "Upgrade ($"+Math.floor(CFOUpgradeCost)+")";
+		if ( Cash < CFOUpgradeCost ){document.getElementById("UpgradeCFO").className = "BadButton";}else{document.getElementById("UpgradeCFO").className = "GoodButton";}
+		document.getElementById('CFOsPerSecond').innerHTML = "  +$".concat(CFOsPerSecond,"/sec");
+		
+	}
+	
+	function addCash( Amount ){
+		Cash = Cash + Amount
+		updateValues()
+	}
+	
+	
+	function upgradeIntern(){
+		if ( Cash >= InternUpgradeCost ){
+			addCash( -InternUpgradeCost );
+			OwnedInternUpgrades = OwnedInternUpgrades + 1;
+			InternUpgradeCost = InternUpgradeCost * UpgradeCostMultiplier;
+			updateValues();
+		}
+	}
+	
+	function hireIntern(){
+		if ( Cash >= InternCurrentCost ){
+			addCash( -InternCurrentCost );
+			OwnedInterns = OwnedInterns + 1;
+			InternCurrentCost = Math.ceil( InternCurrentCost * CostMultiplier );
+			updateValues();
+		}
+	}
+	
+	function upgradeAccountant(){
+		if ( Cash >= AccountantUpgradeCost ){
+			addCash( -AccountantUpgradeCost );
+			OwnedAccountantUpgrades = OwnedAccountantUpgrades + 1;
+			AccountantUpgradeCost = AccountantUpgradeCost * UpgradeCostMultiplier;
+			updateValues();
+		}
+	}
+	
+	function hireAccountant(){
+		if ( Cash >= AccountantCurrentCost ){
+			addCash( -AccountantCurrentCost );
+			OwnedAccountants = OwnedAccountants + 1;
+			AccountantCurrentCost = Math.ceil( AccountantCurrentCost * CostMultiplier ) 
+			updateValues();
+		}
+	}
+	
+	function upgradeBanker(){
+		if ( Cash >= BankerUpgradeCost ){
+			addCash( -BankerUpgradeCost );
+			OwnedBankerUpgrades = OwnedBankerUpgrades + 1;
+			BankerUpgradeCost = BankerUpgradeCost * UpgradeCostMultiplier;
+			updateValues();
+		}
+	}
+	
+	function hireBanker(){
+		if ( Cash >= BankerCurrentCost ){
+			addCash( -BankerCurrentCost );
+			OwnedBankers = OwnedBankers + 1;
+			BankerCurrentCost = Math.ceil( BankerCurrentCost * CostMultiplier ) 
+			updateValues();
+		}
+	}
+	
+	function upgradeCFO(){
+		if ( Cash >= CFOUpgradeCost ){
+			addCash( -CFOUpgradeCost );
+			OwnedCFOUpgrades = OwnedCFOUpgrades + 1;
+			CFOUpgradeCost = CFOUpgradeCost * UpgradeCostMultiplier;
+			updateValues();
+		}
+	}
+	
+	function hireCFO(){
+		if ( Cash >= CFOCurrentCost ){
+			addCash( -CFOCurrentCost );
+			OwnedCFOs = OwnedCFOs + 1;
+			CFOCurrentCost = Math.ceil( CFOCurrentCost * CostMultiplier ) 
+			updateValues();
+		}
+	}
+	
+	function getCash(){
+		addCash( CashPerSecond / ( 1000/CashInterval ) )
+	}
+	
+	var CashTimer = window.setInterval(function(){ getCash() }, CashInterval);
+	var LostFocusTime;
+	var GainFocusTime;
+	$(window).blur(function() {
+		LostFocusTime = new Date().getTime()/CashInterval;
+		
+		//Stop Cash Flow
+		window.clearTimeout(CashTimer)
+	});
+	
+	$(window).focus(function() {
+		GainFocusTime = new Date().getTime()/CashInterval;
+		var LostTime = GainFocusTime - LostFocusTime;
+		for(I=1; I<LostTime; I++ ){
+			getCash();
+		}
+		//StartCashFlow
+		CashTimer = window.setInterval(function(){ getCash() }, CashInterval);
+	});
+</script>
