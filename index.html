@@ -1,18 +1,26 @@
 <html>
 	
-	<button type="button" onmouseup="Unclick()" >Click Me!</button>
+	<button class="unselectable" type="button" onmouseup="Unclick()" >Click Me!</button>
 
 	<script>
 	
 		// enable vibration support
 		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-
-		if (navigator.vibrate) {
-			navigator.vibrate([500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]);
-		}
 		
 		function Unclick(){
 			navigator.vibrate( 100, 100 )
 		}
+		
 	</script>
+	
+	<style>
+		.unselectable {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+	</style>
 </html>
