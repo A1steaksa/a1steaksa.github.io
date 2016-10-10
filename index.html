@@ -7,6 +7,10 @@
 		// enable vibration support
 		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 		
+		function Click(){
+			navigator.vibrate( 120, 125 )
+		}
+		
 		function Unclick(){
 			navigator.vibrate( 100, 100 )
 		}
